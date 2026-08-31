@@ -4,18 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a0e17">
+  <meta name="author" content="Shree">
   <title>SurroundCheck - 5.1 Speaker Setup & Audio Calibrator</title>
+  
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon-192.png" type="image/png">
-  <link rel="apple-touch-icon" href="icon-512.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="app-wrapper">
+    <!-- Header -->
     <header class="app-header">
       <div class="logo-area">
-        <img src="icon-192.png" alt="SurroundCheck logo" class="logo-icon-img">
+        <span class="logo-icon">🎛️</span>
         <div>
           <h1>SURROUND<span>CHECK</span> <small>5.1 PRO</small></h1>
           <p>ഹോം തിയേറ്റർ സ്പീക്കർ ചാനൽ & സൗണ്ട് കാലിബ്രേറ്റർ</p>
@@ -35,7 +37,7 @@
 
       <div class="song-info">
         <div class="song-details">
-          <strong id="songTitle">മലയാളം ഡെമോ ട്രാക്ക് (Demo Track)</strong>
+          <strong id="songTitle">ഡെമോ ട്രാക്ക് (Demo Track)</strong>
           <span id="songStatus">പ്ലേ ചെയ്യാൻ തയ്യാറാണ്</span>
         </div>
         <button id="songPlayBtn" class="play-pill-btn">▶ പാട്ട് പ്ലേ ചെയ്യുക</button>
@@ -44,13 +46,13 @@
       <div class="music-channel-filter">
         <label>പാട്ട് കേൾക്കേണ്ട സ്പീക്കർ തിരഞ്ഞെടുക്കുക:</label>
         <div class="pill-group">
-          <button class="pill-btn active" data-music-ch="all">എല്ലാ സ്പീക്കറും (All)</button>
-          <button class="pill-btn" data-music-ch="0">Front Left (Left Only)</button>
-          <button class="pill-btn" data-music-ch="2">Center (Vocals)</button>
-          <button class="pill-btn" data-music-ch="1">Front Right (Right Only)</button>
-          <button class="pill-btn" data-music-ch="3">Subwoofer (Deep Bass)</button>
-          <button class="pill-btn" data-music-ch="4">Surround L (Left Only)</button>
-          <button class="pill-btn" data-music-ch="5">Surround R (Right Only)</button>
+          <button class="pill-btn active" data-music-ch="all">എല്ലാ സ്പീക്കറും</button>
+          <button class="pill-btn" data-music-ch="0">Front Left</button>
+          <button class="pill-btn" data-music-ch="2">Center</button>
+          <button class="pill-btn" data-music-ch="1">Front Right</button>
+          <button class="pill-btn" data-music-ch="3">Subwoofer</button>
+          <button class="pill-btn" data-music-ch="4">Surround L</button>
+          <button class="pill-btn" data-music-ch="5">Surround R</button>
         </div>
       </div>
     </section>
@@ -68,7 +70,7 @@
       <div class="setting-box">
         <label>ടെസ്റ്റ് ടോൺ സിഗ്നൽ:</label>
         <select id="signalType">
-          <option value="voice">വോയ്സ് + ഹൈ ടോൺ</option>
+          <option value="voice">വോയ്സ് + ബെൽ ചിം</option>
           <option value="pinkNoise">പിങ്ക് നോയ്സ് (Pink Noise)</option>
           <option value="bassSweep">ബേസ് സ്വീപ്പ് (20Hz - 140Hz)</option>
         </select>
@@ -85,7 +87,7 @@
       നിലവിലെ സ്റ്റാറ്റസ്: <strong>റെഡി (Ready)</strong>
     </div>
 
-    <!-- Theater Room Visualizer -->
+    <!-- 5.1 Theater Room Visualizer -->
     <div class="theater-stage">
       <div class="screen-indicator">🔊 SPEAKERS</div>
 
@@ -108,7 +110,7 @@
           <span class="spk-mal">വലത് മാത്രം</span>
         </button>
 
-        <!-- Subwoofer with Animated Woofer SVG -->
+        <!-- Subwoofer with Animated Cone -->
         <button class="speaker-tile sub-tile" id="btn-sub" data-channel="3">
           <div class="sub-woofer-cone">
             <svg viewBox="0 0 100 100" class="sub-svg">
@@ -139,20 +141,16 @@
       </div>
     </div>
 
+    <!-- Footer strictly INSIDE wrapper -->
     <footer class="app-footer">
-      <p>💡 HDMI ARC അല്ലെങ്കിൽ 5.1 സൗണ്ട് കാർഡ് വഴി ഹോം തിയേറ്റർ കണക്ട് ചെയ്യുക.</p>
+      <p class="footer-tip">💡 HDMI ARC അല്ലെങ്കിൽ 5.1 സൗണ്ട് കാർഡ് വഴി ഹോം തിയേറ്റർ കണക്ട് ചെയ്യുക.</p>
+      <div class="footer-credits">
+        <p class="creator-badge">Created with ❤️ by <strong>SREENAND</strong></p>
+        <p class="copyright-text">© 2026 SurroundCheck. All rights reserved.</p>
+      </div>
     </footer>
   </div>
 
   <script src="app.js"></script>
-  <!-- Footer with Branding & Copyright -->
-    <footer class="app-footer">
-      <p class="footer-tip">💡 HDMI ARC അല്ലെങ്കിൽ 5.1 സൗണ്ട് കാർഡ് വഴി ഹോം തിയേറ്റർ കണക്ട് ചെയ്യുക.</p>
-      
-      <div class="footer-credits">
-        <p class="creator-badge">Created with ❤️ by <strong>Shree</strong></p>
-        <p class="copyright-text">© 2026 SurroundCheck. All rights reserved.</p>
-      </div>
-    </footer>
 </body>
 </html>
