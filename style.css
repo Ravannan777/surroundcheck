@@ -363,3 +363,38 @@ select {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
+/* Footer & Credits Styling */
+.app-footer {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-tip {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.footer-credits {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.creator-badge {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+.creator-badge strong {
+  color: var(--accent-cyan);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.copyright-text {
+  font-size: 0.7rem;
+  color: #64748b;
+}
