@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0e17">
+  <title>SurroundCheck - 5.1 Speaker Setup & Audio Calibrator</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icon-512.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <header class="app-header">
+      <div class="logo-area">
+        <img src="icon-192.png" alt="SurroundCheck logo" class="logo-icon-img">
+        <div>
+          <h1>SURROUND<span>CHECK</span> <small>5.1 PRO</small></h1>
+          <p>ഹോം തിയേറ്റർ സ്പീക്കർ ചാനൽ & സൗണ്ട് കാലിബ്രേറ്റർ</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Music Player Section -->
+    <section class="music-card">
+      <div class="music-header">
+        <span class="badge">🎵 മ്യൂസിക് ടെസ്റ്റിംഗ് മോഡ്</span>
+        <label class="custom-file-upload">
+          📂 സ്വന്തം പാട്ട് തിരഞ്ഞെടുക്കുക
+          <input type="file" id="audioFileInput" accept="audio/*">
+        </label>
+      </div>
+
+      <div class="song-info">
+        <div class="song-details">
+          <strong id="songTitle">മലയാളം ഡെമോ ട്രാക്ക് (Demo Track)</strong>
+          <span id="songStatus">പ്ലേ ചെയ്യാൻ തയ്യാറാണ്</span>
+        </div>
+        <button id="songPlayBtn" class="play-pill-btn">▶ പാട്ട് പ്ലേ ചെയ്യുക</button>
+      </div>
+
+      <div class="music-channel-filter">
+        <label>പാട്ട് കേൾക്കേണ്ട സ്പീക്കർ തിരഞ്ഞെടുക്കുക:</label>
+        <div class="pill-group">
+          <button class="pill-btn active" data-music-ch="all">എല്ലാ സ്പീക്കറും (All)</button>
+          <button class="pill-btn" data-music-ch="0">Front Left (Left Only)</button>
+          <button class="pill-btn" data-music-ch="2">Center (Vocals)</button>
+          <button class="pill-btn" data-music-ch="1">Front Right (Right Only)</button>
+          <button class="pill-btn" data-music-ch="3">Subwoofer (Deep Bass)</button>
+          <button class="pill-btn" data-music-ch="4">Surround L (Left Only)</button>
+          <button class="pill-btn" data-music-ch="5">Surround R (Right Only)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section class="settings-grid">
+      <div class="setting-box">
+        <label>വോയ്സ് ഗൈഡ്:</label>
+        <select id="languageSelect">
+          <option value="ml" selected>മലയാളം (Malayalam Voice)</option>
+          <option value="en">English Voice</option>
+        </select>
+      </div>
+
+      <div class="setting-box">
+        <label>ടെസ്റ്റ് ടോൺ സിഗ്നൽ:</label>
+        <select id="signalType">
+          <option value="voice">വോയ്സ് + ഹൈ ടോൺ</option>
+          <option value="pinkNoise">പിങ്ക് നോയ്സ് (Pink Noise)</option>
+          <option value="bassSweep">ബേസ് സ്വീപ്പ് (20Hz - 140Hz)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="master-actions">
+      <button id="autoTestBtn" class="action-btn auto-btn">⚡ ഓട്ടോ സ്പീക്കർ ടെസ്റ്റ്</button>
+      <button id="stopBtn" class="action-btn stop-btn">⏹ സ്റ്റോപ്പ്</button>
+    </div>
+
+    <div id="statusBox" class="live-status">
+      നിലവിലെ സ്റ്റാറ്റസ്: <strong>റെഡി (Ready)</strong>
+    </div>
+
+    <!-- Theater Room Visualizer -->
+    <div class="theater-stage">
+      <div class="screen-indicator">🔊 SPEAKERS</div>
+
+      <div class="speakers-grid">
+        <button class="speaker-tile" id="btn-fl" data-channel="0">
+          <span class="spk-icon">🔊</span>
+          <span class="spk-name">Front Left</span>
+          <span class="spk-mal">ഇടത് മാത്രം</span>
+        </button>
+
+        <button class="speaker-tile center-tile" id="btn-c" data-channel="2">
+          <span class="spk-icon">📢</span>
+          <span class="spk-name">Center</span>
+          <span class="spk-mal">സെന്റർ ചാനൽ</span>
+        </button>
+
+        <button class="speaker-tile" id="btn-fr" data-channel="1">
+          <span class="spk-icon">🔊</span>
+          <span class="spk-name">Front Right</span>
+          <span class="spk-mal">വലത് മാത്രം</span>
+        </button>
+
+        <!-- Subwoofer with Animated Woofer SVG -->
+        <button class="speaker-tile sub-tile" id="btn-sub" data-channel="3">
+          <div class="sub-woofer-cone">
+            <svg viewBox="0 0 100 100" class="sub-svg">
+              <circle cx="50" cy="50" r="45" class="sub-outer-ring"/>
+              <circle cx="50" cy="50" r="32" class="sub-middle-ring"/>
+              <circle cx="50" cy="50" r="16" class="sub-dust-cap"/>
+            </svg>
+          </div>
+          <span class="spk-name">Subwoofer (LFE)</span>
+          <span class="spk-mal">ഡീപ് ബേസ് / വൂഫർ</span>
+        </button>
+
+        <button class="speaker-tile" id="btn-sl" data-channel="4">
+          <span class="spk-icon">🔈</span>
+          <span class="spk-name">Surround Left</span>
+          <span class="spk-mal">ഇടത് മാത്രം</span>
+        </button>
+
+        <div class="sweet-spot">
+          <span>🛋️ സോഫ / ലിസണർ</span>
+        </div>
+
+        <button class="speaker-tile" id="btn-sr" data-channel="5">
+          <span class="spk-icon">🔈</span>
+          <span class="spk-name">Surround Right</span>
+          <span class="spk-mal">വലത് മാത്രം</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <p>💡 HDMI ARC അല്ലെങ്കിൽ 5.1 സൗണ്ട് കാർഡ് വഴി ഹോം തിയേറ്റർ കണക്ട് ചെയ്യുക.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
