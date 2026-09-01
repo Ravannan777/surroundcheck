@@ -1,4 +1,4 @@
-const CACHE_NAME = 'surroundcheck-v1';
+const CACHE_NAME = 'surroundcheck-v3';
 
 // ഓഫ്‌ലൈനായി സൂക്ഷിക്കേണ്ട ഫയലുകൾ
 const ASSETS_TO_CACHE = [

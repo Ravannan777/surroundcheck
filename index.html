@@ -2,28 +2,46 @@
 <html lang="ml">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0a0e17">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#05070d">
   <meta name="author" content="Shree">
-  <title>SurroundCheck - 5.1 Speaker Setup & Audio Calibrator</title>
-  
+  <title>SurroundCheck - 5.1 / 2.1 Speaker Setup & Audio Calibrator</title>
+
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <div class="ambient-blob blob-a" aria-hidden="true"></div>
+  <div class="ambient-blob blob-b" aria-hidden="true"></div>
 
   <div class="app-wrapper">
     <!-- Header -->
     <header class="app-header">
       <div class="logo-area">
-        <span class="logo-icon">🎛️</span>
-        <div>
-          <h1>SURROUND<span>CHECK</span> <small>5.1 PRO</small></h1>
-          <p>ഹോം തിയേറ്റർ സ്പീക്കർ ചാനൽ & സൗണ്ട് കാലിബ്രേറ്റർ</p>
+        <img class="logo-badge" src="icon-192.png" alt="SurroundCheck">
+        <div class="brand-text">
+          <h1>SURROUND<span>CHECK</span></h1>
+          <p>ഹോം തിയേറ്റർ സ്പീക്കർ ചാനൽ &amp; സൗണ്ട് കാലിബ്രേറ്റർ</p>
         </div>
       </div>
+      <div class="live-led" id="liveLed" aria-hidden="true"></div>
     </header>
+
+    <!-- Speaker Layout Mode Selector -->
+    <section class="mode-select" role="tablist" aria-label="സ്പീക്കർ ലേഔട്ട്">
+      <button class="mode-tab active" id="mode-5-1" data-mode="5.1" role="tab" aria-selected="true">
+        <span class="mode-num">5.1</span>
+        <span class="mode-label">ഫുൾ സറൗണ്ട്</span>
+      </button>
+      <button class="mode-tab" id="mode-2-1" data-mode="2.1" role="tab" aria-selected="false">
+        <span class="mode-num">2.1</span>
+        <span class="mode-label">സ്റ്റീരിയോ + സബ്</span>
+      </button>
+      <div class="mode-tab-glider" id="modeGlider" aria-hidden="true"></div>
+    </section>
 
     <!-- Music Player Section -->
     <section class="music-card">
@@ -45,14 +63,14 @@
 
       <div class="music-channel-filter">
         <label>പാട്ട് കേൾക്കേണ്ട സ്പീക്കർ തിരഞ്ഞെടുക്കുക:</label>
-        <div class="pill-group">
+        <div class="pill-group" id="musicPillGroup">
           <button class="pill-btn active" data-music-ch="all">എല്ലാ സ്പീക്കറും</button>
           <button class="pill-btn" data-music-ch="0">Front Left</button>
-          <button class="pill-btn" data-music-ch="2">Center</button>
+          <button class="pill-btn ch-5-1-only" data-music-ch="2">Center</button>
           <button class="pill-btn" data-music-ch="1">Front Right</button>
           <button class="pill-btn" data-music-ch="3">Subwoofer</button>
-          <button class="pill-btn" data-music-ch="4">Surround L</button>
-          <button class="pill-btn" data-music-ch="5">Surround R</button>
+          <button class="pill-btn ch-5-1-only" data-music-ch="4">Surround L</button>
+          <button class="pill-btn ch-5-1-only" data-music-ch="5">Surround R</button>
         </div>
       </div>
     </section>
@@ -71,10 +89,29 @@
         <label>ടെസ്റ്റ് ടോൺ സിഗ്നൽ:</label>
         <select id="signalType">
           <option value="voice">വോയ്സ് + ബെൽ ചിം</option>
+          <option value="piano">🎹 പിയാനോ നോട്ട് (Piano Tone)</option>
           <option value="pinkNoise">പിങ്ക് നോയ്സ് (Pink Noise)</option>
           <option value="bassSweep">ബേസ് സ്വീപ്പ് (20Hz - 140Hz)</option>
         </select>
       </div>
+    </section>
+
+    <!-- Toggles -->
+    <section class="toggle-row">
+      <button class="toggle-switch active" id="voiceToggle" role="switch" aria-checked="true">
+        <span class="toggle-track"><span class="toggle-knob"></span></span>
+        <span class="toggle-copy">
+          <strong>വോയ്സ് അനൗൺസ്മെന്റ്</strong>
+          <small>ഓഫ് ചെയ്താൽ ശുദ്ധമായ ചാനൽ ഐസൊലേഷൻ ടെസ്റ്റ് (ബ്രൗസറിന് വോയ്സ് പാൻ ചെയ്യാനാവില്ല)</small>
+        </span>
+      </button>
+      <button class="toggle-switch active" id="bassMgmtToggle" role="switch" aria-checked="true">
+        <span class="toggle-track"><span class="toggle-knob"></span></span>
+        <span class="toggle-copy">
+          <strong>ബേസ് മാനേജ്മെന്റ്</strong>
+          <small>ഡീപ് ബേസ് സബ്‌വൂഫറിലേക്ക് മാത്രം റീഡയറക്ട് ചെയ്യുന്നു</small>
+        </span>
+      </button>
     </section>
 
     <!-- Actions -->
@@ -87,25 +124,28 @@
       നിലവിലെ സ്റ്റാറ്റസ്: <strong>റെഡി (Ready)</strong>
     </div>
 
-    <!-- 5.1 Theater Room Visualizer -->
-    <div class="theater-stage">
-      <div class="screen-indicator">🔊 SPEAKERS</div>
+    <!-- Theater Room Visualizer -->
+    <div class="theater-stage" id="theaterStage">
+      <div class="screen-indicator">🔊 SPEAKERS <span id="modeChip">5.1</span></div>
 
-      <div class="speakers-grid">
+      <div class="speakers-grid" id="speakersGrid">
         <button class="speaker-tile" id="btn-fl" data-channel="0">
           <span class="spk-icon">🔊</span>
+          <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
           <span class="spk-name">Front Left</span>
           <span class="spk-mal">ഇടത് മാത്രം</span>
         </button>
 
-        <button class="speaker-tile center-tile" id="btn-c" data-channel="2">
+        <button class="speaker-tile center-tile ch-5-1-only" id="btn-c" data-channel="2">
           <span class="spk-icon">📢</span>
+          <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
           <span class="spk-name">Center</span>
           <span class="spk-mal">സെന്റർ ചാനൽ</span>
         </button>
 
         <button class="speaker-tile" id="btn-fr" data-channel="1">
           <span class="spk-icon">🔊</span>
+          <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
           <span class="spk-name">Front Right</span>
           <span class="spk-mal">വലത് മാത്രം</span>
         </button>
@@ -123,18 +163,20 @@
           <span class="spk-mal">ഡീപ് ബേസ് / വൂഫർ</span>
         </button>
 
-        <button class="speaker-tile" id="btn-sl" data-channel="4">
+        <button class="speaker-tile ch-5-1-only" id="btn-sl" data-channel="4">
           <span class="spk-icon">🔈</span>
+          <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
           <span class="spk-name">Surround Left</span>
           <span class="spk-mal">ഇടത് മാത്രം</span>
         </button>
 
-        <div class="sweet-spot">
+        <div class="sweet-spot ch-5-1-only">
           <span>🛋️ സോഫ / ലിസണർ</span>
         </div>
 
-        <button class="speaker-tile" id="btn-sr" data-channel="5">
+        <button class="speaker-tile ch-5-1-only" id="btn-sr" data-channel="5">
           <span class="spk-icon">🔈</span>
+          <span class="eq-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
           <span class="spk-name">Surround Right</span>
           <span class="spk-mal">വലത് മാത്രം</span>
         </button>

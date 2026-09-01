@@ -1,7 +1,7 @@
 {
-  "name": "SurroundCheck - 5.1 Speaker Setup & Tester",
+  "name": "SurroundCheck - 5.1 / 2.1 Speaker Setup & Tester",
   "short_name": "SurroundCheck",
-  "description": "5.1 Home Theater Speaker Channel Identifier, Polarity & Sound Setup Tool",
+  "description": "5.1 & 2.1 Home Theater Speaker Channel Identifier, Polarity & Sound Setup Tool",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
